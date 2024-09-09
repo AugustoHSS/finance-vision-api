@@ -13,9 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
+model User {
   id       Int       @id @default(autoincrement())
   email    String    @unique
   password String
+  refreshTokens RefreshToken[]
 
+   @@map("users")
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  expiresAt DateTime
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("refresh_tokens")
 }
