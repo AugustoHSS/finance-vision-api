@@ -5,9 +5,7 @@ export function validateSchema(schema: ObjectSchema) {
     return (req: Request, res: Response, next: NextFunction) => {
         const { error } = schema.validate(req.body);
         if (error) {
-            return res.status(400).json({
-                message: error.details.map((detail) => detail.message),
-            });
+            throw { message: error.details[0].message, type: 'schema validate' };
         }
         next();
     };

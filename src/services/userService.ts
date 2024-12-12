@@ -16,9 +16,9 @@ function checkPassword(plainPassword: string, hashedPassword: string) {
   }
 }
 
-export async function createUser(email: string, password: string) {
+export async function createUser(username: string, email: string, password: string) {
   const passwordHash = bcrypt.hashSync(password, 10);
-  userRepository.createUser(email, passwordHash);
+  userRepository.createUser(username, email, passwordHash);
 }
 
 export async function login(email: string, password: string) {
