@@ -23,7 +23,7 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     return res.status(400).send(error.message);
   }
   if (error.type === 'declined') {
-    return res.status(405).send(error.message);
+    return res.status(403).send(error.message);
   }
 
   console.log(error);
