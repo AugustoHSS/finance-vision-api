@@ -11,6 +11,15 @@ export async function register(req: Request, res: Response) {
 
 export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
-  const token = await userService.login(email, password);
-  res.status(200).send({ token });
+
+  const { accessToken, refreshToken } = await userService.login(email, password);
+
+  res.cookie('refresh_token', refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
+  res.status(200).send({ accessToken });
 }

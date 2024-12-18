@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import * as userRepository from '../repositories/userRepository';
+import * as jwtRepository from '../repositories/jwtRepository';
 
 export async function findEmail(email: string) {
   const searchEmail = await userRepository.verifyEmail(email);
@@ -23,11 +24,19 @@ export async function createUser(username: string, email: string, password: stri
 
 export async function login(email: string, password: string) {
   const user = await userRepository.verifyEmail(email);
-  
+
   if (!user) {
     throw { message: 'email not found', type: 'validation error' };
   }
   checkPassword(password, user.password);
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET as string);
-  return token;
+
+  const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: "15m" });
+  const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET as string, { expiresIn: "7d" });
+
+  await jwtRepository.saveRefreshToken(user.id, accessToken)
+
+  return {
+    accessToken,
+    refreshToken,
+  };
 }
