@@ -8,3 +8,8 @@ export async function verifyEmail(email: string) {
   const emailFound = await prisma.user.findUnique({ where: { email } });
   return emailFound;
 }
+
+export async function findById(email: string) {
+  const emailFound = await prisma.user.findUnique({ where: { email } });
+  return emailFound;
+}
