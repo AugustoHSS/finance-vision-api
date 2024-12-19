@@ -9,3 +9,20 @@ export async function saveRefreshToken(userId: number, refreshToken: string) {
         },
     });
 }
+
+export async function findByToken(token: string, userId: number) {
+    return prisma.refreshToken.findFirst({
+        where: {
+            token,
+            userId,
+        },
+    });
+}
+
+export async function deleteByToken(token: string) {
+    return prisma.refreshToken.deleteMany({
+        where: {
+            token,
+        },
+    });
+}
