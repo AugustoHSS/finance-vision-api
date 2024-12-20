@@ -4,10 +4,12 @@ import express, {
 } from 'express';
 import 'express-async-errors';
 import router from './routers/index';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(json());
 app.use(cors());
+app.use(cookieParser());
 app.use(router);
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   if (error.type === 'validation error') {

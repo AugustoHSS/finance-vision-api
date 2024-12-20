@@ -3,8 +3,8 @@ import * as jwtService from '../services/jwtService';
 
 
 export async function refresh_access_token(req: Request, res: Response) {
-    const refreshToken = req.cookies?.jwt;
-
+    const refreshToken = req.cookies?.refresh_token;
+    console.log(req.cookies.refresh_token)
     if (!refreshToken) {
         throw { message: 'No content', type: 'validation error' };
     }
@@ -14,7 +14,7 @@ export async function refresh_access_token(req: Request, res: Response) {
 }
 
 export async function logout(req: Request, res: Response) {
-    const refreshToken = req.cookies?.jwt;
+    const refreshToken = req.cookies?.refresh_token;
 
     if (!refreshToken) {
         throw { message: 'No content', type: 'validation error' };
@@ -22,6 +22,7 @@ export async function logout(req: Request, res: Response) {
 
     jwtService.deleteRefreshToken(refreshToken)
 
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none' });
+    res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'none' });
+
     return res.status(204).json({ message: 'Logged out successfully' });
 }

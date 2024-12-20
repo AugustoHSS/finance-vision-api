@@ -19,8 +19,9 @@ export async function refresh_access_token(refreshToken: string) {
         }
 
         const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: '15m' });
-        return { accessToken };
+        return accessToken;
     } catch (error) {
+        console.log(error)
         throw { message: 'password incorrect', type: 'validation error' };
     }
 }
@@ -32,4 +33,5 @@ export async function deleteRefreshToken(refreshToken: string) {
     if (result.count === 0) {
         throw { message: 'Refresh token not found', type: 'not_found' };
     }
+
 }

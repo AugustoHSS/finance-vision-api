@@ -30,10 +30,10 @@ export async function login(email: string, password: string) {
   }
   checkPassword(password, user.password);
 
-  const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: "15m" });
+  const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: "1m" });
   const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET as string, { expiresIn: "7d" });
 
-  await jwtRepository.saveRefreshToken(user.id, accessToken)
+  await jwtRepository.saveRefreshToken(user.id, refreshToken)
 
   return {
     accessToken,
