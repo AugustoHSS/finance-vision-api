@@ -2,10 +2,10 @@ import joi from 'joi';
 
 export const loginSchema = joi.object({
     email: joi.string()
-    .email()
-    .required(),
+        .email()
+        .required(),
 
     password: joi.string()
-    .pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{3,30}$'))
-    .required(),
+        .pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{3,30}$'))
+        .required(),
 });

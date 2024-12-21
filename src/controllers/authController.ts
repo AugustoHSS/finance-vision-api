@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
 import * as authService from '../services/authService';
 
-
 export async function refreshAccessToken(req: Request, res: Response) {
     const refreshToken = req.cookies?.refresh_token;
-    console.log(req.cookies.refresh_token)
+    console.log(req.cookies.refresh_token);
     if (!refreshToken) {
         throw { message: 'No content', type: 'validation error' };
     }
@@ -20,7 +19,7 @@ export async function logout(req: Request, res: Response) {
         throw { message: 'No content', type: 'validation error' };
     }
 
-    authService.revokeRefreshToken(refreshToken)
+    authService.revokeRefreshToken(refreshToken);
 
     res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'none' });
 

@@ -1,17 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-export function validateAccessToken(req: Request | any, res: Response, next: NextFunction) {
+import { AppError } from '../errors/AppError';
+import { ErrorType } from '../errors/ErrorTypes';
+
+export function validateAccessToken(req: Request | any, res: Response, next: NextFunction) { // eslint-disable-line
     const authHeader = req.header('Authorization');
 
     if (!authHeader) {
-        return res.status(401).json({ message: 'Access token is missing or invalid' });
+        throw new AppError('Access token is missing or invalid', ErrorType.VALIDATION_ERROR);
     }
 
     const token = authHeader.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({ message: 'Access token is missing or invalid' });
+        throw new AppError('Access token is missing or invalid', ErrorType.VALIDATION_ERROR);
     }
 
     try {
@@ -21,7 +24,8 @@ export function validateAccessToken(req: Request | any, res: Response, next: Nex
 
         return next();
     } catch (error) {
-        return res.status(401).json({ message: 'Access token expired or invalid' });
+        console.error('Error verifying token:', error);
+        throw new AppError('Access token expired or invalid', ErrorType.VALIDATION_ERROR);
     }
 }
 

@@ -10,7 +10,7 @@ export class AppError extends Error {
         [ErrorType.DUPLICATE_VALUE]: 409,
         [ErrorType.SCHEMA_VALIDATE]: 422,
         [ErrorType.DECLINED]: 403,
-        [ErrorType.UNAUTHORIZED]: 401
+        [ErrorType.UNAUTHORIZED]: 401,
     };
 
     constructor(message: string, type: ErrorType) {

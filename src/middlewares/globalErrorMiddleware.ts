@@ -1,11 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { AppError } from '../errors/AppError';
 
 export const errorMiddleware = (
-    error: any,
+    error: any, // eslint-disable-line
     req: Request,
     res: Response,
-    next: NextFunction
 ) => {
     if (error instanceof AppError) {
         return res.status(error.statusCode).json({

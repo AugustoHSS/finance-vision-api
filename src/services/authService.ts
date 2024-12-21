@@ -9,7 +9,7 @@ import { ErrorType } from '../errors/ErrorTypes';
 
 export async function refreshAccessToken(refreshToken: string) {
     try {
-        const decodedToken: any = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET as string);
+        const decodedToken: any = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET as string); // eslint-disable-line
 
         const user = await userRepository.findById(decodedToken.userId);
 
@@ -26,7 +26,7 @@ export async function refreshAccessToken(refreshToken: string) {
         const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: '15m' });
         return accessToken;
     } catch (error) {
-        console.log(error)
+        console.log(error);
         throw new AppError('Incorrect password', ErrorType.VALIDATION_ERROR);
     }
 }
@@ -60,10 +60,10 @@ export async function login(email: string, password: string) {
     }
     validatePassword(password, user.password);
 
-    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: "15m" });
-    const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET as string, { expiresIn: "7d" });
+    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: '15m' });
+    const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET as string, { expiresIn: '7d' });
 
-    await refreshTokenRepository.saveRefreshToken(user.id, refreshToken)
+    await refreshTokenRepository.saveRefreshToken(user.id, refreshToken);
 
     return {
         accessToken,
