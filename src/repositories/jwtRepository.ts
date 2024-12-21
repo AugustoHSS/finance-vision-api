@@ -5,7 +5,7 @@ export async function saveRefreshToken(userId: number, refreshToken: string) {
         data: {
             token: refreshToken,
             expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-            userId: userId,
+            user_id: userId,
         },
     });
 }
@@ -14,7 +14,7 @@ export async function findByToken(token: string, userId: number) {
     return prisma.refreshToken.findFirst({
         where: {
             token,
-            userId,
+            user_id: userId,
         },
     });
 }
