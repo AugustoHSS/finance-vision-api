@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as jwtService from '../services/authService';
+import * as authService from '../services/authService';
 
 
 export async function refreshAccessToken(req: Request, res: Response) {
@@ -8,7 +8,7 @@ export async function refreshAccessToken(req: Request, res: Response) {
     if (!refreshToken) {
         throw { message: 'No content', type: 'validation error' };
     }
-    const accessToken = await jwtService.refreshAccessToken(refreshToken);
+    const accessToken = await authService.refreshAccessToken(refreshToken);
 
     res.status(200).send({ accessToken });
 }
@@ -20,7 +20,7 @@ export async function logout(req: Request, res: Response) {
         throw { message: 'No content', type: 'validation error' };
     }
 
-    jwtService.revokeRefreshToken(refreshToken)
+    authService.revokeRefreshToken(refreshToken)
 
     res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'none' });
 
@@ -39,7 +39,6 @@ export async function loginUser(req: Request, res: Response) {
     const { email, password } = req.body;
 
     const { accessToken, refreshToken } = await authService.login(email, password);
-    authService
     res.cookie('refresh_token', refreshToken, {
         httpOnly: true,
         secure: true,

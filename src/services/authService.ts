@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import * as userRepository from '../repositories/userRepository';
-import * as jwtRepository from '../repositories/refreshTokenRepository';
+import * as refreshTokenRepository from '../repositories/refreshTokenRepository';
 
 export async function refreshAccessToken(refreshToken: string) {
     try {
@@ -9,9 +9,9 @@ export async function refreshAccessToken(refreshToken: string) {
 
         const user = await userRepository.findById(decodedToken.userId);
 
-        const storedToken = await jwtRepository.findByToken(refreshToken, decodedToken.userId);
+        const storedRefreshToken = await refreshTokenRepository.findByToken(refreshToken, decodedToken.userId);
 
-        if (!storedToken || storedToken.expiresAt < new Date()) {
+        if (!storedRefreshToken || storedRefreshToken.expiresAt < new Date()) {
             throw { message: 'expired refresh token', type: 'validation error' };
         }
 
@@ -29,7 +29,7 @@ export async function refreshAccessToken(refreshToken: string) {
 
 export async function revokeRefreshToken(refreshToken: string) {
 
-    const result = await jwtRepository.deleteByToken(refreshToken);
+    const result = await refreshTokenRepository.deleteByToken(refreshToken);
 
     if (result.count === 0) {
         throw { message: 'Refresh token not found', type: 'not_found' };
@@ -60,7 +60,7 @@ export async function login(email: string, password: string) {
     const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: "15m" });
     const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET as string, { expiresIn: "7d" });
 
-    await jwtRepository.saveRefreshToken(user.id, refreshToken)
+    await refreshTokenRepository.saveRefreshToken(user.id, refreshToken)
 
     return {
         accessToken,
