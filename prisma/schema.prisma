@@ -19,6 +19,7 @@ model User {
   email         String         @unique
   password      String
   refresh_token RefreshToken[]
+  Service       Service[]
 
   @@map("users")
 }
@@ -27,8 +28,53 @@ model RefreshToken {
   id        Int      @id @default(autoincrement())
   token     String   @unique
   expiresAt DateTime
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  user      User     @relation(fields: [user_id], references: [id])
+  user_id   Int
 
   @@map("refresh_token")
+}
+
+model Client {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  services Service[]
+  tips     Tip[]
+
+  @@map("clients")
+}
+
+model Service {
+  id           Int      @id @default(autoincrement())
+  user_id      Int
+  client_id    Int?
+  service_date DateTime
+  value        Decimal
+  boss_id      Int
+  kill_count   Int
+
+  user   User    @relation(fields: [user_id], references: [id])
+  client Client? @relation(fields: [client_id], references: [id])
+  boss   Boss    @relation(fields: [boss_id], references: [id])
+
+  @@map("services")
+}
+
+model Tip {
+  id        Int      @id @default(autoincrement())
+  client_id Int?
+  value     Decimal
+  date      DateTime
+
+  client Client? @relation(fields: [client_id], references: [id])
+
+  @@map("tips")
+}
+
+model Boss {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Service Service[]
+
+  @@map("bosses")
 }
