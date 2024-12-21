@@ -52,6 +52,7 @@ model Service {
   value        Decimal
   boss_id      Int
   kill_count   Int
+  is_ticket    Boolean
 
   user   User    @relation(fields: [user_id], references: [id])
   client Client? @relation(fields: [client_id], references: [id])

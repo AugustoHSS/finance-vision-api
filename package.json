@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon src/app.ts",
+    "dev": "npx nodemon src/app.ts"
   },
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"

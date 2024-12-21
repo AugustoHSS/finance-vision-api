@@ -3,6 +3,8 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+    await prisma.boss.deleteMany();
+
     await prisma.boss.createMany({
         data: [
             { name: 'Boss D' },
