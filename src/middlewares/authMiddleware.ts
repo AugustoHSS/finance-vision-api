@@ -17,15 +17,16 @@ export function validateAccessToken(req: Request | any, res: Response, next: Nex
         throw new AppError('Access token is missing or invalid', ErrorType.VALIDATION_ERROR);
     }
 
-    try {
-        const { userId } = jwt.verify(token, process.env.JWT_ACCESS_SECRET as string) as jwt.JwtPayload;
+    const { userId } = jwt.verify(token, process.env.JWT_ACCESS_SECRET as string) as jwt.JwtPayload;
 
-        req.userId = userId;
-
-        return next();
-    } catch (error) {
-        console.error('Error verifying token:', error);
-        throw new AppError('Access token expired or invalid', ErrorType.VALIDATION_ERROR);
+    if (!userId) {
+        throw new AppError('Access token is invalid', ErrorType.VALIDATION_ERROR);
     }
+
+    req.userId = userId;
+
+    return next();
+
+
 }
 

@@ -4,7 +4,10 @@ export const registerSchema = joi.object({
     username: joi.string()
         .min(5)
         .max(30)
-        .required(),
+        .required().messages({
+            'string.base': 'A data do serviço deve ser uma data válida.',
+            'any.required': 'A data do serviço é obrigatória.',
+        }),
 
     email: joi.string()
         .email()

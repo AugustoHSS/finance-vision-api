@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import * as authService from '../services/authService';
+import { AppError } from '../errors/AppError';
+import { ErrorType } from '../errors/ErrorTypes';
 
 export async function refreshAccessToken(req: Request, res: Response) {
     const refreshToken = req.cookies?.refresh_token;
     console.log(req.cookies.refresh_token);
     if (!refreshToken) {
-        throw { message: 'No content', type: 'validation error' };
+        throw new AppError('Refresh token not found', ErrorType.NOT_FOUND);
     }
     const accessToken = await authService.refreshAccessToken(refreshToken);
 
@@ -16,7 +18,7 @@ export async function logout(req: Request, res: Response) {
     const refreshToken = req.cookies?.refresh_token;
 
     if (!refreshToken) {
-        throw { message: 'No content', type: 'validation error' };
+        throw new AppError('Refresh token not found', ErrorType.NOT_FOUND);
     }
 
     authService.revokeRefreshToken(refreshToken);

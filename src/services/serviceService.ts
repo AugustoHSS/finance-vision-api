@@ -1,0 +1,20 @@
+import * as serviceRepository from '../repositories/serviceRepository';
+
+export async function fetchAllServices(userId: number) {
+    const services = await serviceRepository.findAllByUserId(userId);
+    return services;
+}
+
+export async function createService(
+    userId: number,
+    serviceDate: Date,
+    value: number,
+    bossId: number,
+    killCount: number,
+    isTicket: boolean,
+    clientId?: number,
+){
+
+    const services = await serviceRepository.insert(userId, serviceDate, value, bossId, killCount, isTicket, clientId);
+    return services;
+}

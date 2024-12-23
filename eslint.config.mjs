@@ -16,6 +16,7 @@ export default [
             'space-in-parens': ['error', 'never'],
             'comma-dangle': ['error', 'always-multiline'],
             'eol-last': ['error', 'always'],
+            'comma-spacing': ['error', { before: false, after: true }],
         },
     },
     pluginJs.configs.recommended,
