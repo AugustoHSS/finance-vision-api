@@ -50,7 +50,7 @@ model Service {
   user_id      Int
   client_id    Int?
   service_date DateTime
-  value        Decimal
+  value        Int
   boss_id      Int
   kill_count   Int
   is_ticket    Boolean
