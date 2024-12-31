@@ -1,12 +1,13 @@
 import Joi from 'joi';
 
-const serviceSchema = Joi.object({
+export const serviceSchema = Joi.object({
     serviceDate: Joi.date()
         .iso()
         .required(),
 
     value: Joi.number()
         .positive()
+        .integer()
         .required(),
 
     bossId: Joi.number()
@@ -26,5 +27,3 @@ const serviceSchema = Joi.object({
     isTicket: Joi.boolean()
         .required(),
 });
-
-export default serviceSchema;
