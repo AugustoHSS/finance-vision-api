@@ -5,7 +5,6 @@ import { ErrorType } from '../errors/ErrorTypes';
 
 export async function refreshAccessToken(req: Request, res: Response) {
     const refreshToken = req.cookies?.refresh_token;
-    console.log(req.cookies.refresh_token);
     if (!refreshToken) {
         throw new AppError('Refresh token not found', ErrorType.NOT_FOUND);
     }

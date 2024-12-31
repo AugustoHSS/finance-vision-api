@@ -70,18 +70,16 @@ Returns all services for the authenticated user.
 
 **Response**:
 ```json
-[
-	{
-		"id": 5,
-		"user_id": 1,
-		"client_id": 3 | null,
-		"service_date": "2024-12-21T14:00:00.000Z",
-		"value": "100",
-		"boss_id": 5,
-		"kill_count": 10,
-		"is_ticket": true
-	},
-]
+{
+  "id": 5,                                  // number
+  "user_id": 1,                             // number
+  "client_id": 3,                           // number | null
+  "service_date": "2024-12-21T14:00:00Z",   // string (ISO 8601 date format)
+  "value": "100",                           // string (poderia ser número dependendo do seu banco de dados)
+  "boss_id": 5,                             // number
+  "kill_count": 10,                         // number
+  "is_ticket": true                         // boolean
+}
 ```
 
 ### `POST /services` <a name="post-services"></a>
@@ -90,14 +88,21 @@ Creates a new service for the authenticated user.
 **Request body**:
 ```json
 {
-  "serviceDate": "2024-12-21T14:00:00Z",
-  "value": 100,
-  "client_id": 3 | null,
-  "bossId": 8,
-  "killCount": 10,
-  "isTicket": true
+  "serviceDate": "2024-12-21T14:00:00Z",  // string (ISO 8601 date format)
+  "value": 100,                           // number
+  "client_id": 3,                         // number | null
+  "bossId": 8,                            // number
+  "killCount": 10,                        // number
+  "isTicket": true                        // boolean
 }
 ```
+
+## How to Contribute
+
+1. Fork this repository.
+2. Create a branch for your feature: `git checkout -b my-feature`.
+3. Make your changes and commit with an explanatory message.
+4. Submit a pull request.
 
 ## License
 
