@@ -10,7 +10,7 @@ export async function findLastestByUserId(userId: number, limit: number) {
         {
             where:
             {
-                client_id: userId,
+                user_id: userId,
             },
             orderBy: {
                 tip_date : 'desc',

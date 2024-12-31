@@ -28,3 +28,18 @@ export async function insert(
 
     return newService;
 }
+
+export async function findLastestByUserId(userId: number, limit: number) {
+    const lastestService = await prisma.service.findMany(
+        {
+            where:
+            {
+                user_id: userId,
+            },
+            orderBy: {
+                service_date : 'desc',
+            },
+            take: limit,
+        });
+    return lastestService;
+}

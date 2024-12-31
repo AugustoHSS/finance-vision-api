@@ -18,3 +18,9 @@ export async function createService(
     const services = await serviceRepository.insert(userId, serviceDate, value, bossId, killCount, isTicket, clientId);
     return services;
 }
+
+export async function fetchlastestServices (userId: number, limit: number) {
+    const lastestService = await serviceRepository.findLastestByUserId(userId, limit);
+    console.log(lastestService);
+    return lastestService;
+}

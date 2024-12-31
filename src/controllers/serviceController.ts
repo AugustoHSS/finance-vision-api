@@ -17,3 +17,14 @@ export async function createService(req: Request | any, res: Response) { // esli
 
     res.status(200).send();
 }
+
+export async function getLastestServices(req: Request | any, res: Response){ // eslint-disable-line
+    const userId = req.userId;
+    const limit = parseInt(req.query.limit) || 3;
+    console.log(limit);
+    const lastestServices = await serviceService.fetchlastestServices(userId, limit);
+
+    res.status(200).json(lastestServices);
+}
+
+

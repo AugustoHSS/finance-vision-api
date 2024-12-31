@@ -11,7 +11,7 @@ export async function getAllTips(req: Request | any, res: Response) { // eslint-
 export async function getLastestTips(req: Request | any, res: Response){ // eslint-disable-line
     const userId = req.userId;
     const limit = parseInt(req.query.limit) || 3;
-    console.log(limit);
+
     const lastestTips = await tipService.fetchlastestTips(userId, limit);
 
     res.status(200).json(lastestTips);
