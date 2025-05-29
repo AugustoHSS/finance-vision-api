@@ -51,6 +51,7 @@ model Service {
   client_id    Int?
   service_date DateTime
   value        Int
+  payment_type  PaymentType @default(USD)
   boss_id      Int
   kill_count   Int
   is_ticket    Boolean
@@ -81,4 +82,9 @@ model Boss {
   Service Service[]
 
   @@map("bosses")
+}
+
+enum PaymentType {
+  M
+  USD
 }
