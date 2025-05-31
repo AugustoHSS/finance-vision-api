@@ -21,10 +21,16 @@ export async function createService(req: Request | any, res: Response) { // esli
 export async function getLastestServices(req: Request | any, res: Response){ // eslint-disable-line
     const userId = req.userId;
     const limit = parseInt(req.query.limit) || 3;
-    console.log(limit);
     const lastestServices = await serviceService.fetchlastestServices(userId, limit);
 
     res.status(200).json(lastestServices);
 }
 
+export async function getCurrentMonthTotals(req: Request | any, res: Response) { // eslint-disable-line
 
+
+    const userId = req.userId;
+    const currentMonthTotals = await serviceService.findCurrentMonthTotals(userId);
+
+    res.status(200).json(currentMonthTotals);
+}

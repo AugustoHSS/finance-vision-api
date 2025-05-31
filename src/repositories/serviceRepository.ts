@@ -1,4 +1,5 @@
 import prisma from '../database';
+import { startOfMonth, endOfMonth } from 'date-fns';
 
 export async function findAllByUserId(userId: number) {
     const servicesFound = await prisma.service.findMany({ where: { user_id: userId } });
@@ -42,4 +43,29 @@ export async function findLastestByUserId(userId: number, limit: number) {
             take: limit,
         });
     return lastestService;
+}
+
+export async function findCurrentMonthTotals(userId: number) {
+
+    const now = new Date();
+
+    const currentMonthStart = startOfMonth(now);
+    const currentMonthEnd = endOfMonth(now);
+
+    const groupedTotals = await prisma.service.groupBy({
+        by: ['payment_type', 'is_ticket'],
+        where: {
+            user_id: userId,
+            service_date: {
+                gte: currentMonthStart,
+                lte: currentMonthEnd,
+            },
+        },
+        _sum: {
+            value: true,
+        },
+    });
+
+    console.log(groupedTotals);
+    return groupedTotals;
 }

@@ -24,3 +24,8 @@ export async function fetchlastestServices (userId: number, limit: number) {
     console.log(lastestService);
     return lastestService;
 }
+
+export async function findCurrentMonthTotals(userId: number) {
+    const currentMonthTotals = await serviceRepository.findCurrentMonthTotals(userId);
+    return currentMonthTotals;
+}
