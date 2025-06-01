@@ -38,14 +38,21 @@ async function main() {
             { name: 'Scorpia' },
             { name: 'Tombs of Amascut' },
             { name: 'Tormented Demon' },
-            { name: 'Vardenovis' },
+            { name: 'Vardovis' },
             { name: 'Venenatis' },
             { name: 'Vetion' },
             { name: 'Whisperer' },
             { name: 'Zulrah' },
         ],
     });
+    await prisma.client.deleteMany();
+    await prisma.client.create({
+        data: {
+            name: 'No Client',
+        },
+    });
 }
+
 
 main()
     .then(async () => {
