@@ -10,11 +10,6 @@ export const tipSchema = Joi.object({
         .positive()
         .required(),
 
-    value: Joi.number()
-        .integer()
-        .positive()
-        .required(),
-
     tip_date: Joi.date()
         .iso()
         .required(),

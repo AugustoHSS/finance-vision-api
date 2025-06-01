@@ -1,14 +1,7 @@
 import Joi from 'joi';
 
 export const serviceSchema = Joi.object({
-    serviceDate: Joi.date()
-        .iso()
-        .required(),
 
-    value: Joi.number()
-        .positive()
-        .integer()
-        .required(),
 
     bossId: Joi.number()
         .integer()
@@ -19,11 +12,25 @@ export const serviceSchema = Joi.object({
         .integer()
         .positive(),
 
+    serviceDate: Joi.date()
+        .iso()
+        .required(),
+
     killCount: Joi.number()
         .integer()
         .positive()
         .required(),
 
+    paymentType: Joi.string()
+        .valid('USD', 'M')
+        .required(),
+
     isTicket: Joi.boolean()
         .required(),
+
+    value: Joi.number()
+        .positive()
+        .integer()
+        .required(),
+
 });
