@@ -30,7 +30,6 @@ export const serviceSchema = Joi.object({
 
     value: Joi.number()
         .positive()
-        .integer()
         .required(),
 
 });
