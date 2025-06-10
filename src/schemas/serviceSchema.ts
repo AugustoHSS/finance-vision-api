@@ -2,7 +2,6 @@ import Joi from 'joi';
 
 export const serviceSchema = Joi.object({
 
-
     bossId: Joi.number()
         .integer()
         .positive()
@@ -29,6 +28,7 @@ export const serviceSchema = Joi.object({
         .required(),
 
     value: Joi.number()
+        .precision(3)
         .positive()
         .required(),
 

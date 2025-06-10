@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 export const tipSchema = Joi.object({
     client_id: Joi.number()
-        .integer()
+        .precision(3)
         .positive(),
 
     user_id: Joi.number()
