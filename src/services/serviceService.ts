@@ -1,21 +1,19 @@
 import * as serviceRepository from '../repositories/serviceRepository';
+import { IService } from '../interfaces';
 
 export async function fetchAllServices(userId: number) {
     const services = await serviceRepository.findAllByUserId(userId);
     return services;
 }
 
-export async function createService(
-    userId: number,
-    serviceDate: Date,
-    value: number,
-    bossId: number,
-    killCount: number,
-    isTicket: boolean,
-    clientId?: number,
-){
+export async function createService(userId:number, data: IService) {
+    const valueInCents = Math.round(data.value * 100);
 
-    const services = await serviceRepository.insert(userId, serviceDate, value, bossId, killCount, isTicket, clientId);
+    const serviceData = {
+        ...data,
+        value: valueInCents,
+    };
+    const services = await serviceRepository.insert(userId, serviceData);
     return services;
 }
 

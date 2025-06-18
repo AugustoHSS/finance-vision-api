@@ -1,29 +1,22 @@
 import prisma from '../database';
 import { startOfMonth, endOfMonth } from 'date-fns';
+import { IService } from '../interfaces';
 
 export async function findAllByUserId(userId: number) {
     const servicesFound = await prisma.service.findMany({ where: { user_id: userId } });
     return servicesFound;
 }
 
-export async function insert(
-    userId: number,
-    serviceDate: Date,
-    value: number,
-    bossId: number,
-    killCount: number,
-    isTicket: boolean,
-    clientId?: number,
-) {
+export async function insert(userId:number, serviceData:IService) {
     const newService = await prisma.service.create({
         data: {
             user_id: userId,
-            service_date: serviceDate,
-            value: value,
-            boss_id: bossId,
-            kill_count: killCount,
-            is_ticket: isTicket,
-            client_id: clientId,
+            service_date: serviceData.serviceDate,
+            value: serviceData.value,
+            boss_id: serviceData.bossId,
+            kill_count: serviceData.killCount,
+            is_ticket: serviceData.isTicket,
+            client_id: serviceData.clientId,
         },
     });
 

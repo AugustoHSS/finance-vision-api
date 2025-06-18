@@ -11,9 +11,9 @@ export async function getAllServices(req: Request | any, res: Response) { // esl
 
 export async function createService(req: Request | any, res: Response) { // eslint-disable-line
     const userId = req.userId;
-    const {serviceDate, value, bossId, killCount, isTicket, clientId} = req.body;
+    const data = req.body;
 
-    serviceService.createService(userId, serviceDate, value, bossId, killCount, isTicket, clientId);
+    serviceService.createService(userId, data);
 
     res.status(200).send();
 }
@@ -27,7 +27,6 @@ export async function getLastestServices(req: Request | any, res: Response){ // 
 }
 
 export async function getCurrentMonthTotals(req: Request | any, res: Response) { // eslint-disable-line
-
 
     const userId = req.userId;
     const currentMonthTotals = await serviceService.findCurrentMonthTotals(userId);
