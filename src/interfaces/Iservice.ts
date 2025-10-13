@@ -6,4 +6,5 @@ export interface IService {
     killCount: number;
     isTicket: boolean;
     clientId: number;
+    paymentType: "USD" | "M";
 }

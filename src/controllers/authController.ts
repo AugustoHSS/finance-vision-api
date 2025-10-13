@@ -38,12 +38,7 @@ export async function registerUser(req: Request, res: Response) {
 export async function loginUser(req: Request, res: Response) {
     const { email, password } = req.body;
 
-    const { accessToken, refreshToken } = await authService.login(email, password);
-    res.cookie('refresh_token', refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    const { accessToken } = await authService.login(email, password);
+    
     res.status(200).send({ accessToken });
 }

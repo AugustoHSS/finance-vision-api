@@ -17,6 +17,7 @@ export async function insert(userId:number, serviceData:IService) {
             kill_count: serviceData.killCount,
             is_ticket: serviceData.isTicket,
             client_id: serviceData.clientId,
+            payment_type: serviceData.paymentType,
         },
     });
 

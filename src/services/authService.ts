@@ -60,15 +60,12 @@ export async function login(email: string, password: string) {
     }
     validatePassword(password, user.password);
 
-    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: '15m' });
+    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET as string);
     const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET as string, { expiresIn: '7d' });
 
     await refreshTokenRepository.saveRefreshToken(user.id, refreshToken);
 
-    return {
-        accessToken,
-        refreshToken,
-    };
+    return { accessToken };
 }
 
 function validatePassword(plainPassword: string, hashedPassword: string) {
