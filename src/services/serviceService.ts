@@ -7,7 +7,10 @@ export async function fetchAllServices(userId: number) {
 }
 
 export async function createService(userId:number, data: IService) {
-    const valueInCents = Math.round(data.value * 100);
+    let valueInCents = data.value;
+    if(data.paymentType === "USD") {
+        valueInCents = Math.round(data.value * 100);
+    }
 
     const serviceData = {
         ...data,
