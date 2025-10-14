@@ -59,7 +59,5 @@ export async function findCurrentMonthTotals(userId: number) {
             value: true,
         },
     });
-
-    console.log(groupedTotals);
     return groupedTotals;
 }
