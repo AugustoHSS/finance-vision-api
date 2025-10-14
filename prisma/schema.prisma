@@ -67,7 +67,7 @@ model Tip {
   id            Int      @id @default(autoincrement())
   client_id     Int?
   user_id       Int
-  value         Decimal
+  value         Int
   tip_date      DateTime
 
   client Client? @relation(fields: [client_id], references: [id])
