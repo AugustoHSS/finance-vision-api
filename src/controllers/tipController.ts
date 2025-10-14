@@ -16,3 +16,12 @@ export async function getLastestTips(req: Request | any, res: Response){ // esli
 
     res.status(200).json(lastestTips);
 }
+
+export async function createTip(req: Request | any, res: Response) { // eslint-disable-line
+    const userId = req.userId;
+    const tipData = req.body;
+
+    await tipService.createTip(userId, tipData);
+
+    res.status(201).send();
+}

@@ -11,11 +11,11 @@ export async function getAllServices(req: Request | any, res: Response) { // esl
 
 export async function createService(req: Request | any, res: Response) { // eslint-disable-line
     const userId = req.userId;
-    const data = req.body;
+    const serviceData = req.body;
 
-    serviceService.createService(userId, data);
+    await serviceService.createService(userId, serviceData);
 
-    res.status(200).send();
+    res.status(201).send();
 }
 
 export async function getLastestServices(req: Request | any, res: Response){ // eslint-disable-line
